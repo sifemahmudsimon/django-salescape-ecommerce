@@ -1,0 +1,153 @@
+{% extends "base.html" %} {% load static %} {% block content %}
+
+<main>
+    <!-- breadcrumb__area-start -->
+    <section class="breadcrumb__area box-plr-75">
+        <div class="container">
+            <div class="row">
+                <div class="col-xxl-12">
+                    <div class="breadcrumb__wrapper">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="{% url 'home' %}">Home</a>
+                                </li>
+                                <li class="breadcrumb-item active" aria-current="page">Shop</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- breadcrumb__area-end -->
+
+    <!-- shop-area-start -->
+    <div class="shop-area mb-20">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-3 col-lg-4">
+                    <div class="product-widget mb-30">
+                        <h5 class="pt-title">Product categories</h5>
+                        <div class="widget-category-list mt-20">   
+                                                     
+                                <div class="single-widget-category">
+                                    <form id="categoryForm" action="{% url 'product' %}" method="GET">
+                                        <input type="hidden" name="catagory_id" id="category_id" value=""> <!-- Hidden field to handle selected categories -->
+                                        <label><input type="checkbox" name="all_categories" id="allCategories" value="1"> All Categories</label><br>
+                                        {% for cat in catagory %}
+                                            <label><input type="checkbox" name="category" class="categoryCheckbox" value="{{ cat.id }}">{{ cat.name }}</label><br>
+                                        {% endfor %}
+                                    </form>
+                                </div>  
+                        </div>                   
+                    </div>                  
+                 
+                </div>
+                <div class="col-xl-9 col-lg-8">
+                    <div class="shop-banner mb-30">
+                        <div class="banner-image">
+                            <img class="banner-l" src="{% static 'assets/img/banner/sl-banner-back.jpg' %}" alt="" />
+                            <img class="banner-sm" src="{% static 'assets/img/banner/sl-banner-sm.png' %}" alt="" />
+                            <div class="banner-content text-center">
+                                <p class="banner-text mb-30">
+                                    Hurry Up! <br />
+                                    Free Shipping All Order Over $99
+                                </p>
+                                <a href="shop.html" class="st-btn-d b-radius">Discover now</a>
+                            </div>
+                        </div>
+                    </div>
+                 
+                    <div class="tab-content" id="productGridTabContent">
+                        <div class="tab-pane fade show active" id="FourCol" role="tabpanel"
+                            aria-labelledby="FourCol-tab">
+                            <div class="tp-wrapper">
+                                <div class="row g-0">
+                                    {% if product|length < 1 %}
+                                    <h3>No Product To Show</h3>
+                                    <img src="{% static 'assets/img/searching.gif' %}" alt="">
+                                    {% else %}
+                            
+                                    
+                                    {% for product in product %}
+                                    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6" id="productDisplay">
+                                        <div class="product__item product__item-d">
+                                            <div class="product__thumb fix">
+                                                <div class="product-image w-img">
+                                                    <a href="product-details.html">
+                                                        <img src="{{product.featured_image}}" alt="product" style="height:200px; object-fit: contain;" />
+                                                    </a>
+                                                </div>
+                                                <div class="product-action">
+                                                    <a href="#" class="icon-box icon-box-1" data-bs-toggle="modal"
+                                                        data-bs-target="#productModalId">
+                                                        <i class="fal fa-eye"></i>
+                                                        <i class="fal fa-eye"></i>
+                                                    </a>
+                                                    <a href="#" class="icon-box icon-box-1">
+                                                        <i class="fal fa-heart"></i>
+                                                        <i class="fal fa-heart"></i>
+                                                    </a>
+                                                    <a href="#" class="icon-box icon-box-1">
+                                                        <i class="fal fa-layer-group"></i>
+                                                        <i class="fal fa-layer-group"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="product__content-3">
+                                                <h6>
+                                                    <a href="product-details.html">{{product.product_name|truncatewords:4}}</a>
+                                                </h6>
+                                                <div class="rating mb-5">
+                                                    <ul>
+                                                        <li>
+                                                            <a href="#"><i class="fal fa-star"></i></a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#"><i class="fal fa-star"></i></a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#"><i class="fal fa-star"></i></a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#"><i class="fal fa-star"></i></a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#"><i class="fal fa-star"></i></a>
+                                                        </li>
+                                                    </ul>
+                                                    <span>(01 review)</span>
+                                                </div>
+                                                <div class="price mb-10">
+                                                    <span>৳ {{product.price}}</span>
+                                                </div>
+                                            </div>
+                                            <div class="product__add-cart-s text-center">
+                                                <button type="button"
+                                                    class="cart-btn d-flex mb-10 align-items-center justify-content-center w-100">
+                                                    Add to Cart
+                                                </button>
+                                                <button type="button"
+                                                    class="wc-checkout d-flex align-items-center justify-content-center w-100"
+                                                    data-bs-toggle="modal" data-bs-target="#productModalId">
+                                                    Quick View
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endfor %}    
+                                    {% endif %}                              
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- shop-area-end -->
+</main>
+
+{% endblock content %}
