@@ -2,6 +2,13 @@ from django.db import models
 from ckeditor.fields import RichTextField
 from django.utils.text import slugify
 from django.db.models.signals import pre_save
+
+from django.contrib.auth.models import User
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    is_vendor = models.BooleanField(default=False)
+
 # Create your models here.
 
 

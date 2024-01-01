@@ -39,5 +39,6 @@ urlpatterns = [
 
     path('checkout',views.Checkout,name='checkout'),
 
-] +static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT) # media file serving configuration 
+] 
 
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)  # Add this line separately

@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from app.models import slider,banner_area,Main_Catagory,Product,Catagory
+from app.models import slider,banner_area,Main_Catagory,Product,Catagory,User,UserProfile
 
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login
@@ -47,6 +47,7 @@ def REGISTER (request):
         username = request.POST.get('username')
         email = request.POST.get('email')
         password = request.POST.get('password')
+        is_vendor = request.POST.get('is_vendor') == 'on'
 
         if User.objects.filter(username = username).exists():
             messages.error(request,'This username is already exsists')
@@ -59,9 +60,12 @@ def REGISTER (request):
         user = User(
             username = username,
             email = email,
+            
         )
         user.set_password(password)
         user.save()
+        user_profile = UserProfile.objects.create(user=user, is_vendor=is_vendor)
+        user_profile.save()
         return redirect('login')
 
 def LOGIN(request):
@@ -193,3 +197,13 @@ def cart_detail(request):
 
 def Checkout(request):
     return render(request,'checkout/checkout.html')
+
+def vendor_dashbord(request):
+    pass 
+
+
+
+
+# Install django-filter
+#whitenoise
+#templatetag
