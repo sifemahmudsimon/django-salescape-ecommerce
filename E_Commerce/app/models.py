@@ -11,7 +11,6 @@ class UserProfile(models.Model):
 
 # Create your models here.
 
-
 #HOME PAGE
 class slider(models.Model):
     DISCOUNT_DEAL = (               # for Discount_deal choices
@@ -69,6 +68,7 @@ class Section(models.Model):
         return self.name
 
 class Product(models.Model):
+    
     total_quantity = models.IntegerField()
     Availability = models.IntegerField()
     featured_image = models.CharField(max_length=100)
