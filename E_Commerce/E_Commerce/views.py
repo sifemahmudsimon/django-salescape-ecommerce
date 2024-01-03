@@ -200,9 +200,9 @@ def cart_detail(request):
 @login_required(login_url="/accounts/login/")
 def myorder(request):
         cart = request.session.get('cart')
-        
+        address = request.POST.get('address')
         # Process the cart details and create an order
-        order = Order.objects.create(user=request.user)  # Assuming 'user' is a foreign key in Order model
+        order = Order.objects.create(user=request.user, address=address)  # Assuming 'user' is a foreign key in Order model
         order_items = []
         for product_id, product_info in cart.items():
             product_name = product_info.get('product_name')
@@ -210,12 +210,19 @@ def myorder(request):
             price = product_info.get('price')
             print(product_name)
 
-            order_item=OrderItem.objects.create(
-            order=order,
-            product_name=product_name,
-            quantity=quantity,
-            price=price,)
-            order_items.append(order_item)
+            product = Product.objects.get(id=product_id)
+            if product.Availability >= quantity:
+                product.Availability -= quantity
+                product.save()
+
+        # Create OrderItem
+                order_item = OrderItem.objects.create(
+                order=order,
+                product_name=product_name,
+                quantity=quantity,
+                price=price,
+        )
+        order_items.append(order_item)
        
         # Add cart details to the order
         

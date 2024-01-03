@@ -131,7 +131,8 @@ class Additional_Information(models.Model):
 
 class Order(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
-    address = models.TextField()
+    address = models.TextField(max_length=300)
+    created_at = models.DateTimeField(auto_now_add=True) 
 
     def __str__(self):
         return str(self.id)

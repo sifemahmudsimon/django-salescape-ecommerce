@@ -23,8 +23,11 @@ class OrderItemInline(admin.TabularInline):
 
 class OrderAdmin(admin.ModelAdmin):
     inlines = [OrderItemInline,]
-    list_display = ('id','user', 'address',)    
+    list_display = ('id','get_user_full_name', 'address','created_at')    
+    def get_user_full_name(self, obj):
+        return obj.user.get_full_name() if obj.user else 'N/A'  # Replace 'user' with the actual field name
 
+    get_user_full_name.short_description = 'User Full Name'
 
 admin.site.register(UserProfile)
 admin.site.register(Section)
