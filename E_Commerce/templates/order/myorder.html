@@ -1,9 +1,20 @@
 {% extends "base.html" %}
+{% load static %}
 {% block content %}
-    {% for key,value in request.session.cart.items %}
-    <ul>
-        <li>{{key}}</li>
-        <li>{{value.product_name}}</li>
-    </ul>
-    {% endfor %}
+<div class="container py-5">
+    <div>
+        <h2>
+            Your Order Is Confirmed,
+        </h2>
+        <h5>
+            Please Wait We will Delever Your Product soon...
+        </h5>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-auto">
+            <img class="img-fluid" src="{% static 'assets/img/orderconfirmed.gif' %}" alt="">
+        </div>
+    </div>
+</div>
+    
 {% endblock content %}

@@ -133,7 +133,9 @@ class Order(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     address = models.TextField(max_length=300)
     created_at = models.DateTimeField(auto_now_add=True) 
-
+    packaged = models.BooleanField(default=False)
+    dispatched = models.BooleanField(default=False)
+    delevered = models.BooleanField(default=False)
     def __str__(self):
         return str(self.id)
 
