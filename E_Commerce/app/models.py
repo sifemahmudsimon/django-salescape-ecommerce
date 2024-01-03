@@ -135,7 +135,7 @@ class Order(models.Model):
     created_at = models.DateTimeField(auto_now_add=True) 
     packaged = models.BooleanField(default=False)
     dispatched = models.BooleanField(default=False)
-    delevered = models.BooleanField(default=False)
+    delivered = models.BooleanField(default=False)
     def __str__(self):
         return str(self.id)
 

@@ -231,6 +231,11 @@ def myorder(request):
 
     # Handle GET request or invalid submission
   
+@login_required(login_url="/accounts/login/")
+def orderlist(request):
+    orders = Order.objects.all()
+    print(orders)
+    return render(request, 'order/orderlist.html',{'orders': orders})
 
 
 

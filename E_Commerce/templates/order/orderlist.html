@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<div class="page-banner-area page-banner-height-2"
+        data-background="{% static 'assets/img/banner/page-banner-4.jpg'%}">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="page-banner-content text-center">
+                        <h4 class="breadcrumb-title">Your Cart</h4>
+                        <div class="breadcrumb-two">
+                            <nav>
+                                <nav class="breadcrumb-trail breadcrumbs">
+                                    <ul class="breadcrumb-menu">
+                                        <li class="breadcrumb-trail">
+                                            <a href="index.html"><span>Home</span></a>
+                                        </li>
+                                        <li class="trail-item">
+                                            <span>Order History</span>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<div class="container p-4">
+    <table class="table table-hover">
+        <thead>
+          <tr>
+            <th class="text-center" scope="col">Order ID</th>
+            <th scope="col">Delevery Update</th>
+            <th scope="col">Order Details</th>
+            <th scope="col">Address</th>
+            
+          </tr>
+        </thead>
+        <tbody>
+        {% for order in orders reversed %}
+        <tr style="{% if not order.delivered %} background-color: lightgoldenrodyellow; {% endif %}">
+            <td class="align-middle text-center" scope="row">{{ order.id }}</td>
+            <td class="align-middle">            
+                {% if order.delivered %}
+                    <span style="color: green;">Delevered</span>
+                {% else %}
+                    
+                    {% if order.dispatched %}
+                        <span style="color: red;">Dispatched For Delevery</span>
+                    {% else %}
+                        {% if order.packaged %}
+                            <span style="color: orange;">Packaging Complete</span>
+                        {% else %}
+                            <span style="color: green;">Order Confirmed</span>
+                        {% endif %}
+                    {% endif %}
+                {% endif %}
+                </td>
+            <td> 
+                {% for item in order.items.all %}
+                <p>
+                    <span style="color: green;">(Code: {{ item.id }})</span>
+                    {{ item.product_name }} @ 
+                    <span style="color: green;">{{ item.quantity }}nos</span>
+                    
+                </p>
+                {% endfor %}
+            </td>
+            <td class="align-middle">                 
+                    {{order.address}}
+            </td>
+            
+        </tr>
+         {% endfor %}
+      </table>
+{% endblock content %}

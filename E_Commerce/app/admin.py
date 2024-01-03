@@ -23,7 +23,7 @@ class OrderItemInline(admin.TabularInline):
 
 class OrderAdmin(admin.ModelAdmin):
     inlines = [OrderItemInline,]
-    list_display = ('id','get_user_full_name', 'address','created_at','packaged','dispatched','delevered')   
+    list_display = ('id','get_user_full_name', 'address','created_at','packaged','dispatched','delivered')   
     def get_user_full_name(self, obj):
         return obj.user.get_full_name() if obj.user else 'N/A'  # Replace 'user' with the actual field name
 
