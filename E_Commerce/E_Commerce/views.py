@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from app.models import slider,banner_area,Main_Catagory,Product,Catagory,User,UserProfile
+from app.models import slider,banner_area,Main_Catagory,Product,Catagory,User,UserProfile,Order,OrderItem
 
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login
@@ -47,7 +47,8 @@ def REGISTER (request):
         username = request.POST.get('username')
         email = request.POST.get('email')
         password = request.POST.get('password')
-        is_vendor = request.POST.get('is_vendor') == 'on'
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
 
         if User.objects.filter(username = username).exists():
             messages.error(request,'This username is already exsists')
@@ -60,6 +61,8 @@ def REGISTER (request):
         user = User(
             username = username,
             email = email,
+            first_name = first_name,
+            last_name = last_name,
             
         )
         user.set_password(password)
@@ -194,13 +197,33 @@ def cart_detail(request):
     }
     return render(request, 'cart/cart.html',context)
 
+@login_required(login_url="/accounts/login/")
+def myorder(request):
+        cart = request.session.get('cart')
+        
+        # Process the cart details and create an order
+        order = Order.objects.create(user=request.user)  # Assuming 'user' is a foreign key in Order model
+        order_items = []
+        for product_id, product_info in cart.items():
+            product_name = product_info.get('product_name')
+            quantity = product_info.get('quantity')
+            price = product_info.get('price')
+            print(product_name)
 
-def Checkout(request):
-    return render(request,'checkout/checkout.html')
+            order_item=OrderItem.objects.create(
+            order=order,
+            product_name=product_name,
+            quantity=quantity,
+            price=price,)
+            order_items.append(order_item)
+       
+        # Add cart details to the order
+        
 
-def vendor_dashbord(request):
-    pass 
+        return render(request, 'order/myorder.html', {'order': order})
 
+    # Handle GET request or invalid submission
+  
 
 
 

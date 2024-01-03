@@ -79,17 +79,22 @@
                     <h5>Register</h5>
                     <form action="{% url 'handleregister' %}" method="POST">
                         {% csrf_token %}
+                        <div class="row">
+                            <div class="col">
+                                <label for="first_name">First Name<span>*</span></label>
+                                <input id="first_name" type="text" placeholder="Enter first name" name="first_name">
+                            </div>
+                            <div class="col">
+                                <label for="last_name">Last Name<span>*</span></label>
+                                <input id="last_name" type="text" placeholder="Enter last name" name="last_name">
+                            </div>
+                        </div>
                         <label for="username">Username<span>*</span></label>
                         <input id="username" type="text" placeholder="Enter Username" name="username">
                         <label for="email-id">Email Address <span>*</span></label>
                         <input id="email-id" type="text" placeholder="Email address..." name="email">
                         <label for="userpass">Password <span>*</span></label>
                         <input id="userpass" type="password" placeholder="Enter password..." name="password">
-
-                        <div class="single-widget-category">
-                            <input class="" id="is_vendor" type="checkbox" name="is_vendor" value="on">
-                            <label for="is_vendor">Register as a Vendor</label>
-                        </div>
                         <div class="row">
                             
                             

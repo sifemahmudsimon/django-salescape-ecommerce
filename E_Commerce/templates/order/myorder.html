@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+    {% for key,value in request.session.cart.items %}
+    <ul>
+        <li>{{key}}</li>
+        <li>{{value.product_name}}</li>
+    </ul>
+    {% endfor %}
+{% endblock content %}
