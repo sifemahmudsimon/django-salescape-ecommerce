@@ -5,7 +5,7 @@
 <main>
     <!-- page-banner-area-start -->
     <div class="page-banner-area page-banner-height-2"
-        data-background="{% static 'assets/img/banner/page-banner-4.jpg'%}">
+        data-background="{% static 'assets/img/banner/banner-4.gif'%}">
         <div class="container">
             <div class="row">
                 <div class="col-xl-12">
@@ -47,7 +47,9 @@
                                         <th class="product-price">Unit Price</th>
                                         <th class="product-quantity">Quantity</th>
                                         <th class="product-subtotal">Total</th>
+                                        <th class="product-subtotal">Negotiate Price</th>
                                         <th class="product-remove">Remove</th>
+                                        
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -77,6 +79,7 @@
                                             
                                         </td>
                                         <td class="product-subtotal"><span class="amount">৳ {{value.price|multiply:value.quantity }}</span></td>
+                                        <td class="product-remove"><button class="btn btn-warning">Offer A Price</button></td>
                                         <td class="product-remove"><a href="{% url 'item_clear' key%}"><i class="fa fa-times"></i></a></td>
                                     </tr>
                                     {% endfor %}

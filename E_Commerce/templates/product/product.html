@@ -128,11 +128,11 @@
                                                     class="cart-btn d-flex mb-10 align-items-center justify-content-center w-100">
                                                     Add to Cart
                                                 </a>
-                                                <button type="button"
-                                                    class="wc-checkout d-flex align-items-center justify-content-center w-100"
-                                                    data-bs-toggle="modal" data-bs-target="#productModalId">
-                                                    Quick View
-                                                </button>
+                                                <a href="{{product.get_absolute_url}}"
+                                                class="wc-checkout d-flex align-items-center justify-content-center w-100">
+                                                Product Detals
+                                            </a>
+                                               
                                             </div>
                                         </div>
                                     </div>
@@ -141,13 +141,14 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    
+                    </div>                    
                 </div>
             </div>
         </div>
+
     </div>
     <!-- shop-area-end -->
+    
 </main>
 
 {% endblock content %}

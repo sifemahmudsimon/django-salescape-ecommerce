@@ -87,7 +87,7 @@ class Product(models.Model):
     Catagorys = models.ForeignKey(Catagory, on_delete=models.CASCADE)
     Tags = models.CharField(max_length=100)
     Description = RichTextField()
-    section = models.ForeignKey(Section, on_delete=models.DO_NOTHING)
+    section = models.ForeignKey(Section, on_delete=models.SET_NULL, null=True)
     slug = models.SlugField(default='', max_length=500, null=True, blank=True)
 
     def __str__(self):
