@@ -4,8 +4,7 @@
 {% block content %}
 <main>
     <!-- page-banner-area-start -->
-    <div class="page-banner-area page-banner-height-2"
-        data-background="{% static 'assets/img/banner/banner-4.gif'%}">
+    <div class="page-banner-area page-banner-height-2" data-background="{% static 'assets/img/banner/banner-4.gif'%}">
         <div class="container">
             <div class="row">
                 <div class="col-xl-12">
@@ -49,7 +48,7 @@
                                         <th class="product-subtotal">Total</th>
                                         <th class="product-subtotal">Negotiate Price</th>
                                         <th class="product-remove">Remove</th>
-                                        
+
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -64,24 +63,65 @@
                                             <div class="row">
                                                 <div class="col-4">
                                                     {% if value.quantity > 1 %}
-                                                    <a href="{% url 'item_decrement' value.product_id %}#id{{value.id}}" class="text-center">-</a>
+                                                    <a href="{% url 'item_decrement' value.product_id %}#id{{value.id}}"
+                                                        class="text-center">-</a>
                                                     {% else %}
                                                     <a href="" class="text-center">-</a>
                                                     {% endif %}
                                                 </div>
                                                 <div class="col-4 ">
-                                                    <input type="text" value="{{value.quantity}}" class="form-control border-0 text-center">
+                                                    <input type="text" value="{{value.quantity}}"
+                                                        class="form-control border-0 text-center">
                                                 </div>
                                                 <div class="col-4">
-                                                    <a href="{% url 'item_increment' value.product_id %}#id{{value.id}}" class="text-center">+</a>
+                                                    <a href="{% url 'item_increment' value.product_id %}#id{{value.id}}"
+                                                        class="text-center">+</a>
                                                 </div>
                                             </div>
-                                            
+
                                         </td>
-                                        <td class="product-subtotal"><span class="amount">৳ {{value.price|multiply:value.quantity }}</span></td>
-                                        <td class="product-remove"><button class="btn btn-warning">Offer A Price</button></td>
-                                        <td class="product-remove"><a href="{% url 'item_clear' key%}"><i class="fa fa-times"></i></a></td>
+                                        <td class="product-subtotal"><span class="amount">৳
+                                                {{value.price|multiply:value.quantity }}</span></td>
+                                        <td class="product-remove">
+                                            <button class="btn btn-warning" data-toggle="modal"
+                                                data-target="#exampleModal">Offer A Price</button>
+                                        </td>
+                                        <td class="product-remove"><a href="{% url 'item_clear' key%}"><i
+                                                    class="fa fa-times"></i></a></td>
                                     </tr>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document"
+                                            style="display: flex; align-items: center; min-height: calc(100vh - 60px);">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Negotiation Pannel
+                                                    </h5>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <form method="POST">
+                                                <div class="modal-body">
+                                                    <div class="basic-login">
+                                                        <input id="negotiation" type="number"
+                                                            placeholder="Enter the price per unit that you want to purchase with..."
+                                                            name="negotiation">
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-dismiss="modal">Close</button>
+                                                    <button type="button" class="btn btn-warning">Submit Offer</button>
+                                                </div>
+                                            </form>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     {% endfor %}
 
 
@@ -90,9 +130,10 @@
                         </div>
                         <div class="row">
                             <div class="col-12">
-                                <div class="coupon-all">                                    
+                                <div class="coupon-all">
                                     <div class="coupon2">
-                                        <a class="tp-btn-h1" name="update_cart" href="{% url 'cart_clear' %}">Clear Cart</a>
+                                        <a class="tp-btn-h1" name="update_cart" href="{% url 'cart_clear' %}">Clear
+                                            Cart</a>
                                     </div>
                                 </div>
                             </div>
@@ -106,20 +147,25 @@
                                         <li>Packing Cost <span>৳ {{packing_cost}} </span></li>
                                         <li>Tax <span>৳ {{tax}}</span></li>
                                         {% if cart_total_amount > 500 %}
-                                        <li class="text-success" >Delevery Charge <span class="text-success">Free</span></li>
-                                        <li class="text-danger">Order Total <span>৳ {{cart_total_amount|add:packing_cost|add:tax}}</span></li>
+                                        <li class="text-success">Delevery Charge <span class="text-success">Free</span>
+                                        </li>
+                                        <li class="text-danger">Order Total <span>৳
+                                                {{cart_total_amount|add:packing_cost|add:tax}}</span></li>
                                         {% else %}
                                         <li>Delevery Charge <span>৳ 120</span></li>
-                                        <li class="text-danger">Order Total <span >৳ {{cart_total_amount|add:packing_cost|add:tax|add:120}}</span></li>
+                                        <li class="text-danger">Order Total <span>৳
+                                                {{cart_total_amount|add:packing_cost|add:tax|add:120}}</span></li>
                                         {% endif %}
-                                        
+
                                     </ul>
                                     {% csrf_token %}
                                     <div class="basic-login">
                                         <label for="address">Address<span>*</span></label>
-                                        <input id="address" type="text" placeholder="Enter address" name="address" required>
+                                        <input id="address" type="text" placeholder="Enter address" name="address"
+                                            required>
                                     </div>
-                                    <button type="submit"  class="tp-btn-h1" href="{% url 'myorder' %}">Confirm Order</button>
+                                    <button type="submit" class="tp-btn-h1" href="{% url 'myorder' %}">Confirm
+                                        Order</button>
                                 </div>
                             </div>
                         </div>
@@ -176,6 +222,8 @@
                 </div>
             </div>
         </div>
+
+
 
     </section>
     <!-- cta-area-end -->
