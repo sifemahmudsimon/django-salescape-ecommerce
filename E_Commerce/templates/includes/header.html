@@ -7,7 +7,7 @@
         <div class="row align-items-center">
           <div class="col-xl-6 col-lg-7">
             <div class="header-inner-start">
-              
+
               <div class="support d-none d-sm-block">
                 {% if user.is_authenticated %}
                 <form action="{% url 'logout' %}" method="POST">
@@ -16,15 +16,16 @@
                   {% if user.first_name == "" %}
                   <span style="color: white ;">{{user.email}}</span>
                   {% else %}
-                  <span style="color: white ;">{{user.first_name}} {{user.last_name}} </span>              
+                  <span style="color: white ;">{{user.first_name}} {{user.last_name}} </span>
                   {% endif %}
-                  <button type="submit"  style="border: none; background: none; color: #FCBE00;">(logout)</button>
+                  <button type="submit" style="border: none; background: none; color: #FCBE00;">(logout)</button>
 
 
                 </form>
-                
+
                 {% else %}
-                <p>You are not logged in <a href="{% url 'login' %}" style="border: none; background: none; color: #FCBE00; ">(signup/login)</a></p>                  
+                <p>You are not logged in <a href="{% url 'login' %}"
+                    style="border: none; background: none; color: #FCBE00; ">(signup/login)</a></p>
                 {% endif %}
               </div>
             </div>
@@ -33,8 +34,7 @@
             <div class="header-inner-end text-md-end">
               <div class="ovic-menu-wrapper">
                 <ul>
-                  <li><a href="{% url 'about' %}">About Us</a></li>
-                  <li><a href="contact.html">Order Tracking</a></li>
+                  <li><a href="{% url 'about' %}">About Us</a></li>                  
                   <li><a href="{% url 'contact' %}">Contact Us</a></li>
                   <li><a href="faq.html">FAQs</a></li>
                 </ul>
@@ -85,14 +85,14 @@
               </form>
             </div>
           </div>
-         {% include 'includes/modal.html' %}
+          {% include 'includes/modal.html' %}
         </div>
       </div>
     </div>
   </div>
 
-<!-- NAV BAR STARTS -->
-  <div class="header__bottom">    
+  <!-- NAV BAR STARTS -->
+  <div class="header__bottom">
     <div class="container">
       <div class="row g-0 align-items-center">
 
@@ -106,35 +106,32 @@
               <div class="cat__menu">
                 <nav id="mobile-menu" style="display: block">
                   <ul>
-                   
+
                     {% for main_catagory in main_catagory %}
                     <!-- MAIN CATAGORY STARTS -->
                     <li>
-                      <a href="shop.html">{{main_catagory.name}} <i class="far fa-angle-down"></i></a>
+                      <a href="">{{main_catagory.name}} <i class="far fa-angle-down"></i></a>
                       <ul class="mega-menu" data-background="{% static 'assets\img\bg\cat.png' %}">
-                        
-                        {% for catagory in main_catagory.catagory_set.all  %}
+
+                        {% for catagory in main_catagory.catagory_set.all %}
                         <!-- CATAGORY STARTS -->
-                        <li>
-                          <a href="shop.html" style="color:#FCBE00">{{catagory.name}}</a>
-                          <ul class="mega-item" data-background="{% static 'assets\img\bg\cat.png' %}">
-                            <!-- SUB_CATAGORY STARTS -->
-                            {% for sub_catagory in catagory.sub_catagory_set.all  %}
-                            <li>
-                              <a href="product-details.html">{{sub_catagory.name}}</a>
-                            </li>
-                            <!-- SUB_CATAGORY ENDS -->
-                            {% endfor %}                         
-                          </ul>
+                        <li>                         
+                          <form id="categoryForm" action="{% url 'product' %}" method="GET">
+                            <input type="hidden" name="catagory_id" id="category_id" value="">
+                            <!-- Hidden field to handle selected categories -->
+                            <label style="color:#FCBE00; cursor: pointer;">
+                              <input type="checkbox" name="category" class="categoryCheckbox" value="{{ catagory.id }}" style="display: none;">{{ catagory.name }}
+                            </label>
+                          </form>
                         </li>
-                          <!-- CATAGORY ENDS -->
+                        <!-- CATAGORY ENDS -->
                         {% endfor %}
-                        
+
                       </ul>
                     </li>
                     <!-- MAIN CATAGORY ENDS -->
                     {% endfor %}
-                    
+
                     <!-- <li><a href="shop.html">Health &amp; Beauty</a></li> -->
                   </ul>
                 </nav>
@@ -169,13 +166,13 @@
         </div>
         <div class="col-lg-3 col-md-6 col-9">
           <div class="shopeing-text text-sm-end">
-            {% if cart_total_amount >= 0 and cart_total_amount < 500 %}
-            <p>Spend {{-500|add:cart_total_amount}} more and get free shipping!</p>
-            {% else %}
-            <p>Great! You got free shipping.</p>
-            {% endif %}
-            
-            
+            {% if cart_total_amount >= 0 and cart_total_amount < 500 %} <p>Spend {{-500|add:cart_total_amount}} more and
+              get free shipping!</p>
+              {% else %}
+              <p>Great! You got free shipping.</p>
+              {% endif %}
+
+
           </div>
         </div>
       </div>

@@ -87,12 +87,7 @@
                         </div>
                         <div class="row">
                             <div class="col-12">
-                                <div class="coupon-all">
-                                    <div class="coupon">
-                                        <input id="coupon_code" class="input-text" name="coupon_code" placeholder="Coupon code" type="text">
-                                        <button class="tp-btn-h1" name="apply_coupon" type="submit">Apply
-                                            coupon</button>
-                                    </div>
+                                <div class="coupon-all">                                    
                                     <div class="coupon2">
                                         <a class="tp-btn-h1" name="update_cart" href="{% url 'cart_clear' %}">Clear Cart</a>
                                     </div>
@@ -121,7 +116,7 @@
                                         <label for="address">Address<span>*</span></label>
                                         <input id="address" type="text" placeholder="Enter address" name="address" required>
                                     </div>
-                                    <button type="submit"  class="tp-btn-h1" href="{% url 'myorder' %}">Proceed to checkout</button>
+                                    <button type="submit"  class="tp-btn-h1" href="{% url 'myorder' %}">Confirm Order</button>
                                 </div>
                             </div>
                         </div>

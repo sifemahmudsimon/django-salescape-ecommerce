@@ -1,7 +1,7 @@
 <div class="col-xl-4 col-lg-5 col-md-8 col-sm-8">
-    <div class="header-action">
+    <div class="header-action" style="display: flex;justify-content: flex-end;">
       {% if user.is_authenticated %}
-      <div class="block-userlink">
+      <div class="block-userlink px-4">
         <a class="icon-link" href="{% url 'profile' %}">
           <i class="flaticon-user"></i>
           <span class="text">
@@ -11,7 +11,7 @@
         </a>
       </div>
       {% else %}
-      <div class="block-userlink">
+      <div class="block-userlink px-4">
         <a class="icon-link" href="{% url 'login' %}">
           <i class="flaticon-user"></i>
           <span class="text">
@@ -22,18 +22,9 @@
       </div>
       {% endif %}
       
-      <div class="block-wishlist action">
-        <a class="icon-link" href="wishlist.html">
-          <i class="flaticon-heart"></i>
-          <span class="count">0</span>
-          <span class="text">
-            <span class="sub">Favorite</span>
-            My Wishlist
-          </span>
-        </a>
-      </div>
+      
       <div class="block-cart action">
-        <a class="icon-link" href="cart.html">
+        <a class="icon-link" href="{% url 'cart_detail' %}">
           <i class="flaticon-shopping-bag"></i>
           <span class="count"> {{request.session.cart|length}}</span>
           <span class="text">
@@ -84,7 +75,7 @@
               </li>
               <li>
                 <a href="{% url 'cart_detail' %}" class="wc-cart mb-10">View cart</a>
-                <a href="checkout.html" class="wc-checkout">Checkout</a>
+                <a name="update_cart" href="{% url 'cart_clear' %}" class="wc-checkout">Clear Cart</a>
               </li>
             </ul>
           </div>

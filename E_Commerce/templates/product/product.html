@@ -124,10 +124,10 @@
                                                 </div>
                                             </div>
                                             <div class="product__add-cart-s text-center">
-                                                <button type="button"
+                                                <a href="{% url 'cart_add' product.id %}"
                                                     class="cart-btn d-flex mb-10 align-items-center justify-content-center w-100">
                                                     Add to Cart
-                                                </button>
+                                                </a>
                                                 <button type="button"
                                                     class="wc-checkout d-flex align-items-center justify-content-center w-100"
                                                     data-bs-toggle="modal" data-bs-target="#productModalId">
