@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
-from app.models import slider,banner_area,Main_Catagory,Product,Section,Catagory,User,UserProfile,Order,OrderItem
-
+from app.models import slider,banner_area,Main_Catagory,Product,Section,Catagory,User,UserProfile,Order,OrderItem,NegotiationPannel
+from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login
 from django.contrib.auth.decorators import login_required
@@ -199,6 +199,7 @@ def cart_detail(request):
     packing_cost=sum(i['packing_cost'] for i in cart.values() if i)
     tax=sum(i['tax'] for i in cart.values() if i)
 
+    
     context = {
         'packing_cost':packing_cost,
         'tax':tax,
@@ -238,12 +239,30 @@ def myorder(request):
         return render(request, 'order/myorder.html', {'order': order})
 
     # Handle GET request or invalid submission
-  
+def submitoffer(request, product_id):
+    if request.method == 'POST':
+        negotiated_price = request.POST.get('negotiation')
+        product = Product.objects.get(id=product_id)
+
+        NegotiationPannel.objects.create(
+            name = product.product_name,
+            product_value = product.price,
+            offerprice = negotiated_price,
+        )
+        
+
+        
+        # Your logic to handle the offer submission for the specific product
+        # Update the cart or perform any necessary action
+        
+    return redirect("cart_detail")
+
 @login_required(login_url="/accounts/login/")
 def orderlist(request):
     orders = Order.objects.all()
     print(orders)
     return render(request, 'order/orderlist.html',{'orders': orders})
+
 
 
 

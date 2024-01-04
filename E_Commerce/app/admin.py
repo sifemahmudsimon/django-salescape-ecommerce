@@ -48,3 +48,6 @@ admin.site.register(OrderItem)
 admin.site.unregister(User)
 # Register UserAdmin with your customizations
 admin.site.register(User, CustomUserAdmin)
+
+
+admin.site.register(NegotiationPannel)

@@ -148,3 +148,17 @@ class OrderItem(models.Model):
 
     def __str__(self):
         return self.product_name
+    
+class NegotiationPannel(models.Model):
+    name = models.CharField(max_length=100)
+    offerprice = models.IntegerField()
+    product_value = models.IntegerField()
+    STATUS_CHOICES = [
+        ('PENDING', 'PENDING'),
+        ('ACCEPTED', 'ACCEPTED'),
+        ('REJECTED', 'REJECTED'),
+    ]
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='PENDING')
+
+    def __str__(self):
+        return self.name
