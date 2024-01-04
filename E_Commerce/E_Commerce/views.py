@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from app.models import slider,banner_area,Main_Catagory,Product,Catagory,User,UserProfile,Order,OrderItem
+from app.models import slider,banner_area,Main_Catagory,Product,Section,Catagory,User,UserProfile,Order,OrderItem
 
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login
@@ -18,15 +18,23 @@ def HOME(request):
 
     main_catagory = Main_Catagory.objects.all()
 
-    product = Product.objects.filter(section__name='Top Deals of The Day')
-    
+    sections = Section.objects.all()
+
+    # Create a dictionary to store products for each section
+    section_products = {}
+
+    # Fetch products for each section dynamically
+    for section in sections:
+        products = Product.objects.filter(section=section)[:5]  # Fetching 5 products per section
+        section_products[section.name] = products
+
     context = {
-        'sliders':sliders,
-        'banners':banners,
-        'main_catagory':main_catagory,
-        'product':product,
+        'sliders': sliders,
+        'banners': banners,
+        'main_catagory': main_catagory,
+        'section_products': section_products,
     }
-    return render(request,'Main/home.html',context)
+    return render(request, 'Main/home.html', context)
 
 def ABOUT(request):
     return render(request,'Main/about.html')
